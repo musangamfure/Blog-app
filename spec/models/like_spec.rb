@@ -1,15 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe Comment, type: :model do
-  describe '#update_post_comments_counter' do
-    it 'updates the post comments_counter attribute' do
-      user = User.create(name: 'Tom')
+RSpec.describe Like, type: :model do
+  describe '#update_post_likes_counter' do
+    it 'updates the post likes_counter attribute' do
+      # Arrange
+      user = User.create(name: 'Sam')
       post = Post.create(title: 'Hello', author: user)
-      comment = Comment.create(author: user, post:)
+      like = Like.create(author: user, post:)
 
-      comment.update_post_comments_counter
+      # Act
+      like.update_post_likes_counter
 
-      expect(post.reload.comments_counter).to eq(1)
+      # Assert
+      expect(post.reload.likes_counter).to eq(1)
     end
   end
 end

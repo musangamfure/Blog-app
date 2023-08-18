@@ -47,17 +47,21 @@ RSpec.describe Post, type: :model do
 
   describe '#update_user_posts_counter' do
     it 'updates the user posts_counter attribute' do
+      # Arrange
       user = User.create(name: 'Sam')
       post = Post.create(title: 'Hello', author: user)
 
+      # Act
       post.update_user_posts_counter
 
+      # Assert
       expect(user.reload.posts_counter).to eq(1)
     end
   end
 
   describe '#five_most_recent_comments' do
     it 'returns the 5 most recent comments' do
+      # Arrange
       user = User.create(name: 'Salim')
       comment1 = Comment.create(author: user, post: subject, text: 'comment 1', created_at: 5.day.ago)
       comment2 = Comment.create(author: user, post: subject, text: 'comment 2', created_at: 4.day.ago)
@@ -65,8 +69,10 @@ RSpec.describe Post, type: :model do
       comment4 = Comment.create(author: user, post: subject, text: 'comment 4', created_at: 2.day.ago)
       comment5 = Comment.create(author: user, post: subject, text: 'comment 5', created_at: 1.day.ago)
 
+      # Act
       reecent_comments = subject.five_most_recent_comments
 
+      # Assert
       expect(reecent_comments).to eq([comment5, comment4, comment3, comment2, comment1])
     end
   end
