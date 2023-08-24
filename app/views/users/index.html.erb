@@ -1,1 +1,10 @@
-<h1>Users are coming soon!</h1>
+<div class="container mt-5">
+  <% if @users.empty? %>
+    <p>Please add users</p>
+  <% end %>
+  <% @users.each do |user| %>
+    <a href="/users/<%= user.id %>" class="text-decoration-none">
+      <%= render partial: 'partials/user_card', locals: { user: user } %>
+    </a>
+  <% end %>
+</div>
