@@ -2,6 +2,10 @@ class CommentsController < ApplicationController
   before_action :require_user
   before_action :set_post
 
+  def new
+    @comment = Comment.new
+  end
+  
   def create
     @comment = @post.comments.build(comment_params)
     @comment.author = current_user
