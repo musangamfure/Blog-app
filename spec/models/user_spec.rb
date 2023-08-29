@@ -1,23 +1,39 @@
 require 'rails_helper'
 
-describe User, type: :model do
-  it 'validate name exists' do
-    user = User.new(name: nil)
-    expect(user).to_not be_valid
-  end
+RSpec.describe User, type: :model do
+  subject { User.new(name: 'Ali') }
 
-  it 'validate posts_counter is greater than or equal to 0' do
-    user = User.new(posts_counter: -1)
-    expect(user).to_not be_valid
-  end
+  before { subject.save }
 
-  it 'returns three most recent posts' do
-    user = User.create!(name: 'John', posts_counter: 0)
-    3.times.map do
-      Post.create!(author: user, title: 'Old post', comments_counter: 0, likes_counter: 0, created_at: 1.day.ago)
+  describe 'validation tests' do
+    it 'name should be present' do
+      subject.name = nil
+      expect(subject).to_not be_valid
     end
-    new_posts = 3.times.map { Post.create!(author: user, title: 'New post', comments_counter: 0, likes_counter: 0) }
 
-    expect(user.three_recent_posts).to eq new_posts.reverse
+    it 'posts_counter should be integer' do
+      subject.posts_counter = 'hey'
+      expect(subject).to_not be_valid
+    end
+
+    it 'posts_counter should be greater than or equal to zero' do
+      subject.posts_counter = -2
+      expect(subject).to_not be_valid
+      subject.posts_counter = 0
+      expect(subject).to be_valid
+    end
+  end
+
+  describe '#three_most_recent_posts' do
+    it 'returns the 3 most recent posts' do
+      user = User.create(name: 'Shalini')
+      post1 = Post.create(title: 'post1', author: user, created_at: 4.day.ago)
+      post2 = Post.create(title: 'post2', author: user, created_at: 3.day.ago)
+      post3 = Post.create(title: 'post3', author: user, created_at: 2.day.ago)
+
+      reecent_posts = user.three_most_recent_posts
+
+      expect(reecent_posts).to eq([post3, post2, post1])
+    end
   end
 end

@@ -23,7 +23,9 @@
   <% else %>
     <p>No posts available.</p>
   <% end %>
-  <button class="d-flex justify-content-center btn-post">
-    <%= link_to "See All Posts", user_posts_path(@user) %>
-  </button>
+
+ <div class="d-flex d-flex justify-content-center ">
+    <a href="/users/<%= @user.id %>/posts/" class=" btn btn-primary">See all posts</a>
+  </div>
+  
 </div>
