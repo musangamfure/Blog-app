@@ -1,20 +1,27 @@
 require 'rails_helper'
 
 RSpec.feature 'Post Index', type: :feature do
-  let(:user) { User.create(name: 'Tom', photo: 'https://www.kasandbox.org/programming-images/avatars/leaf-blue.png', bio: 'He is a good programmar') }
+  let(:user) { User.create(name: 'Tom', bio: 'He is a good programmer') }
   let!(:post) { Post.create(author: user, title: "first post's title", text: 'first text') }
   let!(:comment1) { Comment.create(author: user, post:, text: 'first comment') }
   let!(:comment2) { Comment.create(author: user, post:, text: 'second comment') }
   let!(:comment3) { Comment.create(author: user, post:, text: 'third comment') }
   let!(:like1) { Like.create(author: user, post:) }
 
+  before do
+    user.update(photo: 'https://www.kasandbox.org/programming-images/avatars/leaf-blue.png')
+  end
+
   scenario "see user's profile picture, username, number of posts and interactions" do
     visit user_posts_path(user)
+
+    expect(page).to have_selector('img[src="https://www.kasandbox.org/programming-images/avatars/leaf-blue.png"]')
     expect(page).to have_content('Tom')
-    expect(page).to have_content(' posts')
+    expect(page).to have_content('Number of posts: 1')
     expect(page).to have_content('Comments: 3')
     expect(page).to have_content('Likes: 1')
   end
+
 
   scenario "see some of the post's title, body and first comments" do
     visit user_posts_path(user)
