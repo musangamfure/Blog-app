@@ -9,7 +9,8 @@ RSpec.feature 'User Index', type: :feature do
 
     expect(page).to have_content('Tom')
     expect(page).to have_content('Ali')
-    expect(page).to have_selector('img[src="https://www.kasandbox.org/programming-images/avatars/leaf-blue.png"]', count: 2)
+    expect(page).to have_selector('img[src="https://www.kasandbox.org/programming-images/avatars/leaf-blue.png"]',
+                                  count: 2)
   end
 
   scenario 'visiting the user index page, you see the number of posts each user has written..' do
