@@ -103,6 +103,12 @@ To run tests, run the following command:
 - [Twitter](https://twitter.com/musangamfure)
 - [LinkedIn](https://www.linkedin.com/in/musangamfurae)
 
+👤*[SALMA IBRAHIM]*
+
+- GitHub: [@Saluumaa](https://github.com/saluumaa)
+- Twitter: [@SalmaHIbrahim20](https://twitter.com/SalmaHIbrahim20)
+- LinkedIn: [Salma ibrahim](https://www.linkedin.com/in/salma-ibrahim-78bb5a14a/)
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- FUTURE FEATURES -->
