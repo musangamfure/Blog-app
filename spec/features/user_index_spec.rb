@@ -9,6 +9,8 @@ RSpec.feature 'User Index', type: :feature do
 
     expect(page).to have_content('Tom')
     expect(page).to have_content('Ali')
+
+    # To check that images with specific src URLs are present
     expect(page).to have_selector('img[src="https://www.kasandbox.org/programming-images/avatars/leaf-blue.png"]',
                                   count: 2)
   end
