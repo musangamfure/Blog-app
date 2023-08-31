@@ -48,7 +48,7 @@ body {
   margin: auto;
 }
 
-.devise-container {
+.container {
   font-family: 'Roboto', sans-serif;
   font-size: 1.2rem;
   display: flex;
@@ -61,7 +61,6 @@ body {
   max-width: 60%;
   margin: 10% auto 0;
   border-radius: 8px;
-  box-shadow: 2px 2px 11px rgba(80, 55, 55, 0.3);
 }
 
 .links {
