@@ -48,7 +48,7 @@ body {
   margin: auto;
 }
 
-.container {
+.container-devise {
   font-family: 'Roboto', sans-serif;
   font-size: 1.2rem;
   display: flex;
@@ -79,7 +79,7 @@ body {
   color: wheat;
 }
 
-.devise-container input {
+.container-devise input {
   width: 100%;
   display: flex;
   border: 1px solid white;
@@ -101,6 +101,10 @@ body {
 
 .remember-me-text {
   flex: 1;
+}
+
+.actions {
+  width: 100%;
 }
 
 .actions input {
@@ -125,6 +129,7 @@ body {
 
 .signup-form {
   width: 65%;
+  justify-content: center;
   align-items: center;
   display: flex;
   flex-direction: column;
