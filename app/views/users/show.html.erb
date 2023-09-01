@@ -1,31 +1,19 @@
-<span class="d-flex justify-content-end">
-  <%= link_to "Create New Post", new_user_post_path(@user), class: "btn btn-primary" %>
-</span><br>
-<div>
-  <%= render partial: 'partials/user_card', locals: { user: @user } %>
-</div>
-<div class="card mt-3">
-  <div class="card-body">
-    <h4>Bio</h4>
-    <p><%= @user.bio %></p>
+<div class="container mt-5">
+  <%= render 'shared/user_card', user: @user %>
+  <div class="card mb-4">
+    <div class="card-body">
+      <h4 class="card-title">Bio</h4>
+      <p><%= @user.bio %></p>
+    </div>
   </div>
-</div>
-<br>
-<div class="recent-posts">
-  <% if @posts.any? %>
-    <% @posts.each do |post| %>
-      <a href="<%= user_post_path(post.author, post) %>" class="text-decoration-none">
-        <div class="mb-4">
-          <%= render 'partials/post_card', post: post %>
-        </div>
-      </a>
-    <% end %>
-  <% else %>
-    <p>No posts available.</p>
+  <% @posts.each do |post| %>
+    <a href="/users/<%= @user.id %>/posts/<%= post.id %>" class="text-decoration-none">
+      <div class="mb-3">
+        <%= render 'shared/post_card', post: post %>
+      </div>
+    </a>
   <% end %>
-
- <div class="d-flex d-flex justify-content-center ">
-    <a href="/users/<%= @user.id %>/posts/" class=" btn btn-primary">See all posts</a>
+  <div class="w-100 mt-5 d-flex justify-content-center align-items-center">
+    <a href="/users/<%= @user.id %>/posts" class="btn btn-primary">See all posts</a>
   </div>
-  
 </div>
