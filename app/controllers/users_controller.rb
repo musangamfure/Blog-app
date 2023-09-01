@@ -1,10 +1,9 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     @users = User.all
-    @recent_posts = {}
-    @users.each do |user|
-      @recent_posts[user.id] = user.posts.order(created_at: :desc).limit(3)
-    end
+    @current_user = current_user
   end
 
   def show
