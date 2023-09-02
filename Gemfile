@@ -79,3 +79,5 @@ gem 'rails-controller-testing', '~> 0.0.3'
 gem 'devise', '~> 4.9'
 
 gem 'cancancan', '~> 3.5'
+
+gem 'active_model_serializers'
