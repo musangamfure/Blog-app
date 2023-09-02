@@ -1,22 +1,21 @@
 <div class="container mt-5">
-  <%= render partial: 'partials/user_card', locals: { user: @user } %>
+<%= render 'shared/user_card', user: @author unless @author.nil? %>
   <% if @posts.empty? %>
     <p>This user has no posts yet</p>
+    <%= link_to 'Back to users', '/users', class: 'btn btn-info' %>
   <% end %>
   <% @posts.each do |post| %>
     <a href="/users/<%= post.author.id %>/posts/<%= post.id %>" class="text-decoration-none">
       <div class="mb-4">
-        <%= render 'partials/post_card', post: post %>
-        <%= render 'partials/comments_card', comments: post.five_recent_comments unless post.five_recent_comments.empty? %>
+        <%= render 'shared/post_card', post: post %>
+        <%= render 'shared/comments_card', comments: post.five_recent_comments unless post.five_recent_comments.empty? %>
       </div>
     </a>
   <% end %>
   <nav aria-label="Pagination for posts" class="mt-5">
     <ul class="pagination justify-content-center">
       <% (1..@total_pages).each do |page| %>
-        <li class="page-item <%= 'active' if params[:page].to_i == page %>">
-          <a class="page-link" href="<%= user_posts_path(@user, page: page) %>"><%= page %></a>
-        </li>
+        <li class="page-item"><a class="page-link" href="/users/<%= @author.id %>/posts?page=<%= page %>"><%= page %></a></li>
       <% end %>
     </ul>
   </nav>

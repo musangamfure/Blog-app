@@ -1,35 +1,51 @@
 class PostsController < ApplicationController
-  def index
-    per_page = 10
-    page = params[:page].to_i
-    page = 1 if page <= 0
+  load_and_authorize_resource
 
-    @user = User.find(params[:user_id])
-    @posts = @user.posts.includes(:author, :comments)
-      .order(created_at: :desc)
-      .offset((page - 1) * per_page)
+  def index
+    page = params[:page] || 1
+    per_page = 10
+
+    user = User.find(params[:user_id])
+    @posts = user.posts.includes(:author)
+      .includes(:comments)
+      .order(created_at: :asc)
+      .offset((page.to_i - 1) * per_page)
       .limit(per_page)
 
-    total_posts = @user.posts.count
-    @total_pages = (total_posts.to_f / per_page).ceil
+    @total_pages = (Post.count.to_f / per_page).ceil
+    @author = @posts.first.author unless @posts.first.nil?
   end
 
   def show
     @post = Post.find(params[:id])
-  end
-
-  def create
-    @post = current_user.posts.build(post_params)
-    if @post.save
-      redirect_to user_post_path(current_user, @post), notice: 'Post was successfully created.'
-    else
-      render :new
-    end
+    @current_user = current_user
+    @like = Like.new
   end
 
   def new
-    @user = User.find(params[:user_id])
-    @post = current_user.posts.build
+    @post = Post.new
+    @current_user = current_user
+  end
+
+  def create
+    post = Post.new(post_params)
+    post.author = current_user
+    post.comments_counter = 0
+    post.likes_counter = 0
+
+    if post.save
+      flash[:success] = 'post saved successfully'
+      redirect_to '/'
+    else
+      flash.now[:error] = 'error: question could not be saved'
+      redirect_to new_user_post_path
+    end
+  end
+
+  def destroy
+    @current_user = current_user
+    @current_user.posts.destroy(params[:id])
+    redirect_to "/users/#{params[:user_id]}/posts"
   end
 
   private

@@ -7,8 +7,15 @@ class Post < ApplicationRecord
   validates :likes_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   before_save :update_posts_counter
+  after_destroy :update_posts_counter
 
   before_validation :set_counter_to_zero
+
+  def excerpt
+    return text unless text.length > 50
+
+    "#{text.slice(0, 50)} ..."
+  end
 
   def set_counter_to_zero
     self.comments_counter = 0 if comments_counter.nil?
